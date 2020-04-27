@@ -33,4 +33,3 @@ class UserAdmin(AuthUserAdmin):
     update_form_class = UserChangeForm
 
 
-admin.site.register(User, UserAdmin)
