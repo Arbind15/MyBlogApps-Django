@@ -1,0 +1,232 @@
+Metadata-Version: 2.1
+Name: devpi-server
+Version: 5.4.1
+Summary: devpi-server: reliable private and pypi.org caching server
+Home-page: http://doc.devpi.net
+Maintainer: Holger Krekel, Florian Schulze
+Maintainer-email: holger@merlinux.eu
+License: MIT
+Keywords: pypi realtime cache server
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Dist: py (>=1.4.23)
+Requires-Dist: appdirs
+Requires-Dist: attrs
+Requires-Dist: devpi-common (<4,>=3.3.0)
+Requires-Dist: itsdangerous (>=0.24)
+Requires-Dist: execnet (>=1.2)
+Requires-Dist: pyramid (>=1.8)
+Requires-Dist: waitress (>=1.0.1)
+Requires-Dist: repoze.lru (>=0.6)
+Requires-Dist: passlib[argon2]
+Requires-Dist: pluggy (<1.0,>=0.6.0)
+Requires-Dist: strictyaml
+Requires-Dist: ruamel.yaml (<=0.15.94) ; python_version == "3.4"
+
+=============================================================================
+devpi-server: server for private package indexes and PyPI caching
+=============================================================================
+
+
+PyPI cache
+==========
+
+You can point ``pip or easy_install`` to the ``root/pypi/+simple/``
+index, serving as a transparent cache for pypi-hosted packages.
+
+
+User specific indexes
+=====================
+
+Each user (which can represent a person, project or team) can have
+multiple indexes and upload packages and docs via standard ``twine`` or
+``setup.py`` invocations.  Users and indexes can be manipulated through
+`devpi-client`_ and a RESTful HTTP API.
+
+
+Index inheritance
+=================
+
+Each index can be configured to merge in other indexes so that it serves
+both its uploads and all releases from other index(es).  For example, an
+index using ``root/pypi`` as a parent is a good place to test out a
+release candidate before you push it to PyPI.
+
+
+Good defaults and easy deployment
+=================================
+
+Get started easily and create a permanent devpi-server deployment
+including pre-configured templates for ``nginx`` and process managers.
+
+
+Separate tool for Packaging/Testing activities
+==============================================
+
+The complementary `devpi-client`_ tool
+helps to manage users, indexes, logins and typical setup.py-based upload and
+installation workflows.
+
+See https://doc.devpi.net on how to get started and further documentation.
+
+
+.. _devpi-client: https://pypi.org/project/devpi-client/
+
+
+Support
+=======
+
+If you find a bug, use the `issue tracker at Github`_.
+
+For general questions use the #devpi IRC channel on `freenode.net`_ or the `devpi-dev@python.org mailing list`_.
+
+For support contracts and paid help contact `merlinux.eu`_.
+
+.. _issue tracker at Github: https://github.com/devpi/devpi/issues/
+.. _freenode.net: https://freenode.net/
+.. _devpi-dev@python.org mailing list: https://mail.python.org/mailman3/lists/devpi-dev.python.org/
+.. _merlinux.eu: https://merlinux.eu
+
+
+=========
+Changelog
+=========
+
+
+
+.. towncrier release notes start
+
+5.4.1 (2020-03-26)
+==================
+
+Bug Fixes
+---------
+
+- Import won't abort anymore when a base index was removed. The bases setting will be imported as is.
+
+
+5.4.0 (2020-01-31)
+==================
+
+.. note::
+  This is the last feature release with Python 2.7 support!
+
+  We will only make export related bugfix releases of 5.4.x.
+
+Features
+--------
+
+- The ``requires_python`` metadata is now included in version data on mirror indexes.
+
+- Downloaded files from mirrors can be included in exports with the ``--include-mirrored-files`` option.
+
+- On import files for mirror indexes are now imported when they were included in the dump (see ``--include-mirrored-files``).
+
+
+Bug Fixes
+---------
+
+- Fix ``--no-root-pypi`` option when importing devpi data.
+
+- Fix pushing from mirror to an index when the file was removed and ``mirror_use_external_urls`` is active.
+
+
+5.3.1 (2019-12-05)
+==================
+
+Bug Fixes
+---------
+
+- fix #688: on file upload existing metadata is only updated, not replaced.
+
+
+5.3.0 (2019-12-03)
+==================
+
+Features
+--------
+
+- fix #732: add ``--unix-socket-perms`` option to set Unix socket permissions when a Unix socket is in use, defaults to '600' if not specified, ignored if ``--unix-socket`` is not used.
+
+- proxy requests from the replica to the master will use number of seconds from the new ``--proxy-timeout`` option as their timeout value.
+
+
+Bug Fixes
+---------
+
+- ignore obsolete pypi_whitelist index setting when sent by devpi-client and remove it when an index config is updated.
+
+
+5.2.0 (2019-10-18)
+==================
+
+Deprecations and Removals
+-------------------------
+
+- The ``--export`` option is deprecated, use the new ``devpi-export`` command instead.
+
+- The ``--gen-config`` option is deprecated, use the new ``devpi-gen-config`` command instead.
+
+- The ``--import`` option is deprecated, use the new ``devpi-import`` command instead.
+
+- The ``--init`` option is deprecated, use the new ``devpi-init`` command instead.
+
+- The ``--passwd`` option is deprecated, use the new ``devpi-passwd`` command instead.
+
+
+Features
+--------
+
+- fix #253: add ``--unix-socket`` option to listen on a unix socket. When this is used the ``--host`` and ``--port`` options are forbidden.
+
+- Add new option ``mirror_use_external_urls`` for mirrors which when ``true`` redirects to the original release URL when the release isn't locally cached yet. No new releases are stored locally from that point on. The metadata is still stored in the database.
+
+- Add devpi-fsck command which compares the hash of files with the hash in the database.
+
+- Metrics for the sqlite storage cache are exposed in the JSON output of the +status view.
+
+- Storage options can now be specified as a dict in yaml config files.
+
+
+Bug Fixes
+---------
+
+- fix #403: extract auth credentials from ``--master-url`` to prevent them from leaking in logs and ``+status``.
+
+- fix #545: provide proper error message when there is an exception during push to an external repository.
+
+- fix #686: prevent name clashes for toxresults by including the timestamp in the filename.
+
+- fix #722: prevent bogus "failed to check mirror whitelist" warnings.
+
+- Fix possible race condition when writing files.
+
+- Fix possible assertion error if importing multiple changes in a replica fails in the middle and fetching a single change set is tried as fallback.
+
+- For plugins the ``offline`` attribute of mirror stage instances now works independently of the ``--offline-mode`` command line option. This only applies to ``_perstage`` methods.
+
+- Files created in a transaction are written directly to temporary files instead of being kept in memory until commit.
+
+- Unnecessary database writes where the final value didn't change are now prevented.
+
+
+Other Changes
+-------------
+
+- The timeout when fetching the list of remote projects for a mirror index is set to a minimum of 30s by default and to 60s when running as replica. Other fetches of mirrors still use the timeout specified via ``--request-timeout``.
+
+
+
