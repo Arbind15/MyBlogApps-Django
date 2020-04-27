@@ -14,8 +14,8 @@ class Blog(models.Model):
     def __str__(self):
         return f'{self.username.username} -Blog'
 
-    def save(self):
-        super().save()
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
         img1=Image.open(self.Profile_Picture.path)
         img1.thumbnail((200,200))
         img1.save(self.Profile_Picture.path)
