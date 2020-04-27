@@ -1,0 +1,26 @@
+{%  extends 'personal/base.html'%}
+{% block content%}
+<h1 align="center">Hi, from Downloads</h1>
+
+<div class='img_list'>
+ {% for itm in data%}
+    <div class="codeblocks">
+        <h3>{{itm.0}}</h3>
+<!--        target="{%url 'acknlg'%}"-->
+        <form method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+        <button class="button" id="{{itm.0}}" type="button" onclick="detail('{{itm.0}}','{{itm.1}}')" style="margin-left: 60%" >Detail</button>
+        <button class="button" type="submit" name="file_dir" value="{{itm.2}}">Download</button>
+        </form>
+        <p class="text-primary" id="sml">Date of upload: {{itm.5}}, Size: {{itm.4}}Mb</p>
+       <div class="downlist" id="{{itm.1}}">
+           {% for detail in itm.3%}
+           {{detail}}
+           <br>
+           {% endfor %}
+       </div>
+    </div>
+        {% endfor %}
+</div>
+
+{% endblock %}

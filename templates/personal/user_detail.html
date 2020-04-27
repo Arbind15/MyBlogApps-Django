@@ -1,0 +1,67 @@
+{%  extends 'personal/base.html'%}
+{% block content%}
+<div class="img_list" style="margin-top: 20px">
+
+        <div class="codeblocks" style="text-align: left">
+            <table>
+                <tr>
+                    <td>
+                        <img src="{{selected_user.blog.Profile_Picture.url}}" style="max-height: 200px;max-width: 200px">
+                    </td>
+                    <td style="text-align: left;padding-left: 10px">
+                        <h2 class="name" style="text-align: left">{{selected_user}}'s posts:</h2>
+                        <h5 class="name" style="text-align: left;font-size: 15px">{{selected_user.blog.Status}}</h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    {%for post in selected_post%}
+     <div class="codeblocks">
+         <small style="font-size: 15px" class="name">Posted on:  {{post.Date|date:"M d, Y"}}</small><br>
+        <label for="title" class="name">Title:</label><br>
+        <input type="text" value="{{post.Title}}" id="title" disabled width="30" style="width: 300px" class="fild"><br>
+        <label for="post" class="name">Post:</label><br>
+        <textarea type="text" maxlength="300" id="post" disabled rows="10" cols="30" class="fild"
+        style="width: 500px;height: 300px">{{post.Post}}</textarea><br>
+        <label for="post" class="name">Comments:</label><br>
+
+         {%for com in selected_comments%}
+         {%for cmt in com%}
+         {%if post == cmt.Post %}
+         <form method="POST", enctype="multipart/form-data" role="form">
+        {% csrf_token %}
+        <table class="name">
+                <tr>
+                    <td rowspan="2">
+                        <button name="s_usr" type="submit" value="{{cmt.username_id}}" style="background-color: transparent;
+                       border: none;">
+                        <img class="actpic" style="height: 30px;width: 30px;" src="{{cmt.username.blog.Profile_Picture.url}}">
+
+                        </button>
+                    </td>
+                    <td style="text-align: left">
+                       <h1>
+                       <button  type="submit" value="{{cmt.username_id}}" name="s_usr"  class="name" style="
+                       text-decoration: none;font-size: 15px;
+                       background-color: transparent;
+                       border: none;
+                       color: aliceblue">{{cmt.username}}</button><br>
+                       <small class="name" style="font-size: 10px">{{cmt.Date}}</small>
+                       </h1>
+                    </td>
+                    </tr>
+                </tr>
+            </table>
+    </form>
+        <textarea  style="width: 300px;font-weight: bold;height: 60px" class="fild" disabled>
+            {{cmt.Comment}}
+        </textarea><br><br>
+         {%endif%}
+         {%endfor%}
+         {%endfor%}
+    </div>
+    {%endfor%}
+</div>
+
+{% endblock %}
