@@ -1,0 +1,19 @@
+{%  extends 'personal/base.html'%}
+{% block content%}
+<h1 align="center">Hi, from codesnippets</h1>
+
+<div class="img_list">
+        {% for itm in data%}
+    <div class="codeblocks">
+        <h2 class="heading"><u>{{itm.0}}:</u></h2>
+        {% for itm1 in itm.1%}
+        {{itm1}}
+        <br>
+        {% endfor %}
+        </div>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{%  extends 'personal/base.html'%}
+{% block content%}
+<h1 align="center">Hi, from gallery</h1>
+
+<div class='img_list'>
+        <div id="pop">
+                <p onclick="popc()" class="close" id="cls">&it;</p>
+                <img id="relm">
+        </div>
+        {% for itm in links%}
+<!--        <p id="imgadd">{{itm}}</p>-->
+        <img src="{{itm.0}}" width="150" height="150" class="imgg" id="{{itm.1}}" onclick="imgclk('{{itm.1}}')">
+<!--    <h1 class="img_list">{{itm}}</h1>-->
+        {% endfor %}
+
+</div>
+
+{% endblock %}

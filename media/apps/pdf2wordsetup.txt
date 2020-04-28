@@ -1,0 +1,14 @@
+Apparatus Required: 1. DC power source 2. Different gates 3. Wires 4. LED 
+Theory: A mathematician named DeMorgan developed a pair of important rules regarding group complementation in Boolean algebra. These theorems are used commonly in Boolean algebra. if A and B are the two variables then:  The first theorem states: Two individually complemented variables when ORed is equivalent to the whole complement of AND of two variables. This means that NAND gate function is identical to OR gate function with complemented inputs. 
+ 
+5 | P a g e 
+Lab Report on Basic Electronics Engineering 
+ 
+The second theorem is stated as: Two individually complemented variables when ANDed is equivalent to the whole complement of OR of two variables. This means that NOR function is equal to the AND gate function with complemented inputs. 
+ 
+ 
+Procedure: 1. Connect the circuit as shown in figure above for each gate. 2. Switch ON the dc power supply and apply high and low value of voltage. 3. Observe the LED for each input. 4. Repeat same process for another gate.  
+Observation: 
+First Theorem: 
+Input Output A B   0 0   0 1   1 0   1 1   Second Theorem: 
+Input Output A B   0 0   0 1   1 0   1 1

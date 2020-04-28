@@ -1,0 +1,95 @@
+{%  extends 'personal/base.html'%}
+{% block content%}
+<div class="img_list" style="margin-top: 20px">
+    {%for post in posts%}
+    <div class="codeblocks">
+        <div>
+            <form method="POST", enctype="multipart/form-data" role="form">
+        {% csrf_token %}
+
+            <table class="name">
+                <tr>
+                    <td rowspan="2">
+                        <button name="s_usr" type="submit" value="{{post.username_id}}" style="background-color: transparent;
+                       border: none;">
+<!--                            {{post.username_id}} gives the id of username of given post-->
+                        <img class="actpic" style="height: 60px;width: 60px" src="{{post.username.blog.Profile_Picture.url}}">
+<!--                           <h4>{{post.username.email}}</h4> this gives email of related user-->
+                        </button>
+                    </td>
+                    <td style="text-align: left">
+                       <h1><button  type="submit" value="{{post.username_id}}" name="s_usr"  class="name" style="
+                       text-decoration: none;font-size: 30px;
+                       background-color: transparent;
+                       border: none;
+                       color: aliceblue">{{post.username}}</button></h1>
+                    </td>
+                    <td style="width: 200px">
+                    {% if  post.username_id == user.id %}
+                        <button type="submit" class="button" value="{{post.id}}" name="edt_btn" style="margin-left: 3%">Edit Post</button>
+                    {% endif %}
+                    </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;padding-left: 10px">
+                             <small style="font-size: 15px">Posted on:  {{post.Date|date:"M d, Y"}}</small>
+                        </td>
+                    </tr>
+                </tr>
+            </table>
+            </form>
+        </div>
+        <label for="title" class="name">Title</label><br>
+        <input type="text" value="{{post.Title}}" id="title" disabled width="30" style="width: 300px;font-weight: bold" class="fild"><br>
+        <label for="post" class="name">Post:</label><br>
+        <textarea type="text" maxlength="300" id="post"disabled rows="10" cols="30" class="fild"
+        style="width: 500px;height: 300px;font-weight: bold">{{post.Post}}</textarea><br>
+
+        <label class="name">Comments:</label><br>
+        {%for cmt in comments%}
+        {%if cmt.Post == post %}
+
+    <form method="POST", enctype="multipart/form-data" role="form">
+        {% csrf_token %}
+        <table class="name">
+                <tr>
+                    <td rowspan="2">
+                        <button name="s_usr" type="submit" value="{{cmt.username_id}}" style="background-color: transparent;
+                       border: none;">
+                        <img class="actpic" style="height: 30px;width: 30px;" src="{{cmt.username.blog.Profile_Picture.url}}">
+
+                        </button>
+                    </td>
+                    <td style="text-align: left">
+                       <h1>
+                       <button  type="submit" value="{{cmt.username_id}}" name="s_usr"  class="name" style="
+                       text-decoration: none;font-size: 15px;
+                       background-color: transparent;
+                       border: none;
+                       color: aliceblue">{{cmt.username}}</button><br>
+                       <small class="name" style="font-size: 10px">{{cmt.Date}}</small>
+                       </h1>
+                    </td>
+                    </tr>
+                </tr>
+            </table>
+    </form>
+        <textarea  style="width: 300px;font-weight: bold;height: 60px" class="fild" disabled>
+            {{cmt.Comment}}
+        </textarea><br><br>
+        {%endif%}
+        {%endfor%}
+        <br>
+        <form method="POST", enctype="multipart/form-data" role="form">
+        {% csrf_token %}
+        <textarea maxlength="100" aria-rowcount="50" required id="comments" style="width: 300px;font-weight: bold;
+        height: 100px"
+                  rows="3" cols="30" class="fild" placeholder="write comment" name="Comment"></textarea><br>
+        <button class="button" type="submit">Post</button><button class="button" type="reset">Cancel</button>
+            <input type="text" name="username" value="{{user.id}}" style="visibility: hidden">
+            <input type="text" name="Post" value="{{post.id}}" style="visibility: hidden">
+        </form>
+    </div>
+    {%endfor%}
+</div>
+{% endblock %}

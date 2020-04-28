@@ -1,0 +1,126 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'personal/stylesheet.css' %}">
+     <link rel="stylesheet" href="{% static 'personal/ui/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/ui/jquery-ui.structure.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/ui/jquery-ui.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'personal/bootstrap/css/bootstrap.min.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'personal/stylesheet.css' %}">
+    <title>Home</title>
+</head>
+<body class="body" onload="load('{{search_str}}')" onresize="reload()">
+<div class="burger" onclick="burger('{{user.is_authenticated}}')" id="burger">
+                <div id="l1"></div>
+                <div id="l2"></div>
+                <div id="l3"></div>
+        </div>
+
+<div class="navdiv" id="navdd">
+    <form method="POST", enctype="multipart/form-data" role="search" action="{%url 'search_result'%}" >
+        {% csrf_token %}
+        <div class="srch" id="srchid">
+            <div class="container" id="c1">
+                <input type="text" placeholder="Enter Keyword" class="srch_fild" name="srch_val" id="auot_com" onclick="autocom()">
+            </div>
+            <div class="container" id="c2">
+                <button class="srch_btn" type="submit">
+                <span class="glyphicon glyphicon-search" aria-hidden="true">Search</span>
+                </button>
+            </div>
+            <div class="container" id="c3">
+                {% if user.is_authenticated %}
+{#                    <a href="{%url 'profile'%}"> <img class="actpic" style="margin-left: -15px" src="{{user.blog.Profile_Picture.url}}"></a>#}
+                {%endif%}
+            </div>
+        </div>
+
+    <ul class="navul" id="navulid">
+        <li><a href="{%url 'home'%}" class="active">Home</a> </li>
+        <li><a onmouseover="over()" onmouseleave="leave()" onclick="over()" id="temp"> Products</a> </li>
+
+        {% if user.is_authenticated %}
+        <li><a href="{%url 'post'%}">Posts</a> </li>
+        <li><a href="{%url 'profile'%}">Profile</a> </li>
+        <li><a href="{%url 'logout'%}">Logout</a> </li>
+        {%else%}
+        <li><a href="{%url 'blog'%}">Blog</a> </li>
+        {%endif%}
+        <li><a href="{%url 'about'%}">About</a> </li>
+    </ul>
+        </form>
+    <div id="hiddendiv11" onmouseover="hidovr()" onmouseleave="hidlev()">
+        <div id="hiddennav">
+                <a href="{%url 'downloads'%}">
+                    Downloads
+                </a><br>
+                <a href="{%url 'codesnippets'%}">
+                    Code Snippets
+                </a><br>
+                <a href="{%url 'gallery'%}">
+                    Gallery
+                </a><br>
+                <a href="{%url 'notes'%}">
+                    Notes
+                </a><br>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+        <script>
+            document.getElementById('hiddendiv11').style.marginRight='420px';
+        </script>
+        {%else%}
+        <script>
+            document.getElementById('hiddendiv11').style.marginRight='176px';
+        </script>
+        {%endif%}
+
+{% if messages %}
+
+            {% for message in messages %}
+
+              <div class="alert alert-{{ message.tags }} codeblocks">
+
+                {{ message }}
+
+              </div>
+
+            {% endfor %}
+
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+<div class="footer">
+    <ul>
+        <li>Follow us on:</li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Google</a></li>
+        <li><a href="mailto:mehtaarbind67@gmail.com">Email</a></li>
+        <li>&copy;2019 Arbind Mehta. All right reserved.</li>
+    </ul>
+
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+ <script type="text/javascript" src="{% static 'personal/javascripts.js' %}">
+    </script>
+ <script src="{% static 'personal/jquery.js' %}">
+    </script>
+<script src="{% static 'personal/ui/jquery-ui.js' %}">
+    </script>
+<script src="{% static 'personal/bootstrap/js/bootstrap.min.js' %}">
+    </script>
+</body>
+</html>

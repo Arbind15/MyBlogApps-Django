@@ -1,0 +1,26 @@
+{% extends "personal/base.html" %}
+{% block content %}
+<h2>
+<div class="homecontent">
+<p>
+The answer is that you have to look at each property of an object separately. This isn't too hard to do if the properties in an object are all primitive values (numbers, strings, booleans). However, if your objects have nested objects and/or methods, then it gets a bit trickier because then the solution depends on what you mean by "equality" in the case of two objects. What do you think it means for one object to be "equal" to an other? A good topic for you to think about.
+Various JavaScript libraries have tackled this question by implementing functions that check equality of objects. Be cautious though because different libraries may have different ideas about what equality of objects means. Make sure the library function works as you expect. For example, you can use the Underscore.js library's isEqual() function to test the equality of objects.
+Point() actually expects two arguments, x and y, which are the coordinates of the point, but we call Point() with no arguments. It turns out that JavaScript is totally okay with this, but unless we do something further, the x and y coordinates of the point we're trying to create will be undefined. So, we write code to test to see whether the x and y values are passed in. If they are, we initialize this.x and this.y with the values x and y respectively. If we don't pass in any values, we use the default value, 50 for both this.x and this.y. Now, you might be tempted to take a shortcut and rewrite if (x == undefined || x == null) { ... } as if (!x) { ... } (based on what you learned in the previous lesson about truthy and falsey values), but be careful! We might want a point at 0, 0, and 0 is falsey, so that shortcut won't work for us in this case. We can, however, shorten the initialization a bit by making use of the conditional operator. Modify point.html as shown:
+</p>
+</div>
+<div class="homecontent">
+    <p>
+        So wht are prototypes anyway? Whenever you create an object in JavaScript, you get a second object with it, its prototype. The prototype is associated with the constructor of an object. Every function has a property, prototype, that holds a prototype object. Whenever you use that function as a constructor to create a new object, that new object gets the object in that function's prototype property as its prototype. So, the Circle() constructor function has a prototype property that contains a Circle prototype object. If you use Circle() to create a new object, circle1, circle1's prototype will be Circle.prototype (that is, the object in the prototype property of the Circle() constructor). You can take a look at the prototype of a constructor function by using the prototype property of the function, like this:
+    </p>
+</div>
+<div class="homecontent">
+    <p>
+        So wht are prototypes anyway? Whenever you create an object in JavaScript, you get a second object with it, its prototype. The prototype is associated with the constructor of an object. Every function has a property, prototype, that holds a prototype object. Whenever you use that function as a constructor to create a new object, that new object gets the object in that function's prototype property as its prototype. So, the Circle() constructor function has a prototype property that contains a Circle prototype object. If you use Circle() to create a new object, circle1, circle1's prototype will be Circle.prototype (that is, the object in the prototype property of the Circle() constructor). You can take a look at the prototype of a constructor function by using the prototype property of the function, like this:
+    <br>
+        We've replaced the function declaration with a variable declaration: we declare the variable computeArea and initialize that variable to the result of a function expression, that is, a function value. Because computeArea is a global variable, the end result is almost the same: a property named computeArea is added to the global window object set to the value of the function. However, when you  and preview, you see an error instead of the expected log messages. Why? JavaScript sees this statement as just a variable declaration and initialization. The value of the variable happens to be a function, but because we are not using a function declaration, the function is no longer defined in that first pass through the code; instead, the function is not defined until JavaScript gets to the variable declaration, which is when it executes the code from the top down. Now that the function is defined after the statements that try to call the function, we get an error message. We can fix the error by moving the variable declaration to the top of the code, like this:
+    </p>
+</div>
+</h2>
+
+
+{% endblock %}
