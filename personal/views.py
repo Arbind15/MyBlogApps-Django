@@ -35,13 +35,13 @@ def findkey():
         # data.append('/media/pdf' + "/" + file)
         search_list.append(file[:-4].split(" "))
 
-    # for usr in User.objects.all():
-    #     t=[str(usr)]
-    #     search_list.append(t)
-    #
-    # for pst in Posts.objects.all():
-    #     u=[str(pst.Title)]
-    #     search_list.append(u)
+    for usr in User.objects.all():
+        t=[str(usr)]
+        search_list.append(t)
+
+    for pst in Posts.objects.all():
+        u=[str(pst.Title)]
+        search_list.append(u)
 #here search_str holds string of keywords which is
 # to be loaded in each page because javascript doesnot have static
 # variable . once you find method to keep tarck of previous variable then you must remove this because this
