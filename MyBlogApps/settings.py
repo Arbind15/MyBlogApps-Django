@@ -25,7 +25,7 @@ SECRET_KEY = '((cgouni72&y0hw+^%x5+5#ppmf^!x^!1#fk-&%pd)8@7z88p_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['arbindblog.herokuapp.com']
+ALLOWED_HOSTS = ['arbindblog.herokuapp.com','127.0.0.1']
 
 
 # Application definition
