@@ -97,7 +97,7 @@ function load(sr_string) {
 
 
 function autocom() {
-    // alert(keywords);
+    alert(keywords);
     // myvar.privilagedMethod();
 $('#auot_com').autocomplete({
    source:keywords

@@ -13,7 +13,8 @@
      <link rel="stylesheet" type="text/css" href="{% static 'personal/stylesheet.css' %}">
     <title>Home</title>
 </head>
-<body class="body" onload="load('{{search_str}}')" onresize="reload()">
+{#onresize="reload()"#}
+<body class="body" onload="load('{{search_str}}')" >
 <div class="burger" onclick="burger('{{user.is_authenticated}}')" id="burger">
                 <div id="l1"></div>
                 <div id="l2"></div>
