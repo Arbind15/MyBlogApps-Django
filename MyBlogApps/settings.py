@@ -77,14 +77,22 @@ WSGI_APPLICATION = 'MyBlogApps.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ddnfgunbepujto',
+#         'USER': 'umrzhdpsnymsyf',
+#         'PASSWORD':'7086c0a0d0c7425f49b8b8ad2b4269e79e5d151934fc0e9cad49f058d96b3a69',
+#         'PORT':'5432',
+#         'HOST':'ec2-52-202-146-43.compute-1.amazonaws.com',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ddnfgunbepujto',
-        'USER': 'umrzhdpsnymsyf',
-        'PASSWORD':'7086c0a0d0c7425f49b8b8ad2b4269e79e5d151934fc0e9cad49f058d96b3a69',
-        'PORT':'5432',
-        'HOST':'ec2-52-202-146-43.compute-1.amazonaws.com',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

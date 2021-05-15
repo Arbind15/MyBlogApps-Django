@@ -12,6 +12,7 @@ from django.utils import timezone
 from .form import (UserCreationForm,UserLoginForm,
                    UserSignupForm,UserBlogUpdateForm,UserUpdateForm,
                    CreatePostForm,CreateCommentForm)
+search_str=""
 
 def findkey():
     search_list = []
@@ -52,7 +53,7 @@ def findkey():
         for itm2 in itm1:
             search_str=search_str+" "+itm2
 
-findkey() #since this required for all fnctions
+# findkey() #since this required for all fnctions
 
 
 def home(request):
